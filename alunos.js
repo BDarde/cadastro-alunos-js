@@ -1,7 +1,8 @@
 var alunos = [
     [1, "Bruno Darde", 23, "Análise e desenvolvimento de sistemas"],
-    [2, "João Pedro", 24, "Química"],
-    [3, "Manuela Pacheco", 28, "Matêmatica"]
+    [2, "Zendaya", 25, "Química"],
+    [3, "João Pedro", 24, "Química"],
+    [4, "Manuela Pacheco", 28, "Matêmatica"]
 ]
 
 function mostrarAlunos() {
@@ -24,7 +25,7 @@ function removeAlunos(id) {
             console.log(`Aluno: ${alunos[i][1]} removido com sucesso`)
             alunos.splice(i, 1);
 
-            
+
         }
     }
 }
@@ -42,6 +43,26 @@ function encontrarAlunoId(id) {
 
 }
 
+
+function ordenaAlunosPorNome() {
+    alunos = alunos.sort((a, b) => {
+        return a[1].localeCompare(b[1]);
+    });
+}
+
+
+function ordenaAlunosPorLetras(desc) {
+    if (desc) {
+        alunos = alunos.sort((a, b) => {
+            return a[1].length - b[1].length
+        })
+    } else {
+        alunos = alunos.sort((a, b) => {
+            return b[1].length - a[1].length
+        })
+    }
+}
+
 function menu() {
     var op;
 
@@ -49,10 +70,9 @@ function menu() {
 
     do {
 
-        console.log('\b MENU\n OPÇÂO (1): Mostrar alunos.\n OPÇÃO (2): Adicionar um aluno.\n OPÇÃO (3): Remover aluno por id.\n OPÇÃO (4): Encontrar aluno por id: ')
+        console.log('\b MENU\n OPÇÂO (1): Mostrar alunos.\n OPÇÃO (2): Adicionar um aluno.\n OPÇÃO (3): Remover aluno por id.\n OPÇÃO (4): Encontrar aluno por id:\n OPÇÃO (5): Ordenar alunos por Nome: \n OPÇÃO (6): Ordenar alunos por quantidade de letra: ')
         op = parseInt(entrada('Digite a opção: '))
         switch (op) {
-
 
             case 1:
                 mostrarAlunos();
@@ -80,9 +100,29 @@ function menu() {
                 break;
 
 
+            case 5:
+
+                ordenaAlunosPorNome();
+                break;
+
+            case 6:
+
+                let ord = parseInt(entrada('Digite 1 para ordem crescente e 2 para ordem decrescente...'));
+
+                if (ord === 1) {
+                    ordenaAlunosPorLetras(true);
+                } else {
+                    ordenaAlunosPorLetras(false)
+                }
+
+                console.log('Alunos reorganizados')
+
+                break;
+
+
             default:
 
-                console.log('Opção inexistente')
+                console.log('Opção inválida')
                 break;
 
 
@@ -95,5 +135,4 @@ function menu() {
 
     } while (op !== 0);
 }
-
 menu()
